@@ -548,16 +548,55 @@ namespace HomeWork5._5
         }
         #endregion
 
+
+        #region
+        static uint Akkerman(uint m = 0, uint n = 0)
+        {
+            uint ret = 0;
+
+            if (m == 0)
+            {
+                return n + 1;
+            }
+            else
+            {
+                if (m > 0 && n == 0)
+                {
+                    ret = Akkerman(m - 1, 1);
+                }
+                else
+                {
+                    ret = Akkerman(m - 1, Akkerman(m, n - 1));
+                }
+            }
+
+            return ret;
+        }
+        static void MainAkkermanFunc()
+        {
+            showH1("Задание #5. Функция Аккермана (m, n)");
+            uint m = Convert.ToUInt32(KeyInputInt("Введите число m:"));
+            uint n = Convert.ToUInt32(KeyInputInt("Введите число n:"));
+
+            ConsoleInfo($"Функция аккермана вернула значение - {Akkerman(m, n)}");
+            Console.ReadKey();
+
+        }
+        #endregion
+
         static void Main(string[] args)
         {
 
-            MainMatrix(); // Задание 1
+            //MainMatrix(); // Задание 1
 
-            MainText(); // Задание 2
+            //MainText(); // Задание 2
 
-            MainTrimText(); // Задание 3
+            //MainTrimText(); // Задание 3
 
-            MainProgressiveCheck(); // Задание 4
+            //MainProgressiveCheck(); // Задание 4
+
+            MainAkkermanFunc(); // Задание 5
+
         }
 
        
