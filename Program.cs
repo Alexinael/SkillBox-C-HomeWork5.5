@@ -1,10 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace HomeWork5._5
 {
     
     class Program
     {
+        #region
         /// <summary>
         /// Умножение матрицы на число
         /// </summary>
@@ -13,7 +15,7 @@ namespace HomeWork5._5
         /// <returns>Вернет матрицу</returns>
         static int[] multi1 (int[] _array, int mult)
         {
-            Console.WriteLine($"Перемножение одномерной матрицы на {mult}");
+            ConsoleInfo($"Перемножение одномерной матрицы на {mult}");
             int[] ret = new int[_array.Length];
             for (int i = 0; i < _array.Length; i++)
             {
@@ -31,7 +33,7 @@ namespace HomeWork5._5
         /// <returns>Вернет двумерную матрицу</returns>
         static int[,] multi1(int[,] _array, int mult)
         {
-            Console.WriteLine($"Перемножение двумерной матрицы на {mult}");
+            ConsoleInfo($"Перемножение двумерной матрицы на {mult}");
 
             int[,] ret = new int[_array.GetLength(0),_array.GetLength(1)];
             for (int i = 0; i < _array.GetLength(0); i++)
@@ -54,7 +56,7 @@ namespace HomeWork5._5
         /// <returns>Вернет матрицу</returns>
         static int[,] multi1(int[,] _array1, int[,] _array2)
         {
-            Console.WriteLine($"Перемножение двумерных матриц");
+            ConsoleInfo($"Перемножение двумерных матриц");
 
             int rows = _array1.GetLength(0);
             int cols = _array2.GetLength(1);
@@ -82,10 +84,7 @@ namespace HomeWork5._5
         }
 
 
-        static void ConsoleInfo(string text)
-        {
-            Console.WriteLine($"> {text}");
-        }
+        
         /// <summary>
         /// Сложение одномерной матрицы
         /// </summary>
@@ -215,34 +214,7 @@ namespace HomeWork5._5
             return _array1.GetLength(0) == _array2.GetLength(1) && _array1.GetLength(1) == _array2.GetLength(0);
         }
 
-        /// <summary>
-        /// перевод введеной строки в число
-        /// </summary>
-        /// <param name="text">текст, который надо преобразовать</param>
-        /// <returns>число (0- если не получилось преобразовать)</returns>
-        static int KeyInputInt(string text)
-        {
-            string s = KeyInputString(text);
-
-            int ret = 0;
-
-            Int32.TryParse(s, out ret);
-
-            return ret;
-        }
-
-        /// <summary>
-        /// Метод ввода текста
-        /// </summary>
-        /// <param name="text">Сообщение для вывода пользователю</param>
-        /// <returns>строка ввода</returns>
-        static string KeyInputString(string text)
-        {
-            Console.WriteLine($"Input string ({text})");
-
-            return Console.ReadLine();
-        }
-
+        
 
         /// <summary>
         /// Получить матрицу, заполненню случайными числами
@@ -293,8 +265,8 @@ namespace HomeWork5._5
             {
                 outString += i.ToString() + "\t";
             }
-            Console.WriteLine(outString);
-            Console.WriteLine("\n");
+            ConsoleInfo(outString);
+            ConsoleInfo("\n");
         }
 
         /// <summary>
@@ -314,27 +286,59 @@ namespace HomeWork5._5
                     outString += _matrix[i, j].ToString() + "\t";
 
                 }
-                Console.WriteLine(outString);
+                ConsoleInfo(outString);
                 outString = "";
             }
-            Console.WriteLine("\n");
+            ConsoleInfo("\n");
+        }
+        #endregion
+
+        /// <summary>
+        /// перевод введеной строки в число
+        /// </summary>
+        /// <param name="text">текст, который надо преобразовать</param>
+        /// <returns>число (0- если не получилось преобразовать)</returns>
+        static int KeyInputInt(string text)
+        {
+            string s = KeyInputString(text);
+
+            int ret = 0;
+
+            Int32.TryParse(s, out ret);
+
+            return ret;
         }
 
+        /// <summary>
+        /// Метод ввода текста
+        /// </summary>
+        /// <param name="text">Сообщение для вывода пользователю</param>
+        /// <returns>строка ввода</returns>
+        static string KeyInputString(string text)
+        {
+            ConsoleInfo($"Input string ({text})");
+
+            return Console.ReadLine();
+        }
+        static void ConsoleInfo(string text)
+        {
+            Console.WriteLine($"> {text}");
+        }
 
         static void showH1(string _text)
         {
-            Console.WriteLine($"***************{_text}***************\n");
+            ConsoleInfo($"***************{_text}***************\n");
         }
 
 
         static void showH2(string _text)
         {
-            Console.WriteLine($"-------------{_text}-------------\n");
+            ConsoleInfo($"-------------{_text}-------------\n");
         }
 
         static void showH3(string _text)
         {
-            Console.WriteLine($"---{_text}---\n");
+            ConsoleInfo($"---{_text}---\n");
         }
 
 
@@ -399,12 +403,76 @@ namespace HomeWork5._5
             Console.ReadKey();
         }
 
+        #region 
+
+        static List<string> getMaxLengthString(string _inputString)
+        {
+            string[] outString = _inputString.Split(' ');
+            List<string> ret = new List<string>();
+            int maxString = 0;
+            for(int i = 0; i < outString.Length; i++)
+            {
+                outString[i] = outString[i].Trim();
+                maxString = Math.Max(outString[i].Length, maxString);
+            }
+            ConsoleInfo($"Найдена максимальная строка длинной {maxString} символов. Подходящие слова под эту длину:");
+            for (int i = 0; i < outString.Length; i++)
+            {
+                
+                if (maxString == outString[i].Length )
+                {
+                    ConsoleInfo($"{outString[i]}");
+                    ret.Add(outString[i]);
+                }
+            }
+            return ret;
+        }
+
+        static List<string> getMinLengthString(string _inputString)
+        {
+            string[] outString = _inputString.Split(' ');
+            List<string> ret = new List<string>();
+            int minString = int.MaxValue;
+            for (int i = 0; i < outString.Length; i++)
+            {
+                outString[i] = outString[i].Trim();
+                minString = Math.Min(outString[i].Length, minString);
+            }
+            ConsoleInfo($"Найдена минимальная строка длинной {minString} символов. Подходящие слова под эту длину:");
+            for (int i = 0; i < outString.Length; i++)
+            {
+
+                if (minString == outString[i].Length)
+                {
+                    ConsoleInfo($"{outString[i]}");
+                    ret.Add(outString[i]);
+                }
+            }
+            return ret;
+        }
+
+        static void MainText()
+        {
+            showH1("Задание 2. Тексты");
+
+
+            string inputString = "";
+            inputString = KeyInputString("Введите предложение ");
+            getMaxLengthString(inputString);
+
+            getMinLengthString(inputString);
+
+
+        }
+        #endregion
+
         static void Main(string[] args)
         {
 
             // Вызов задания по матрицам
-            MainMatrix(); // Задание 1
+            //MainMatrix(); // Задание 1
 
+            MainText(); // Задание 2
         }
 
     }
