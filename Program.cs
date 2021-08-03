@@ -462,7 +462,41 @@ namespace HomeWork5._5
 
             getMinLengthString(inputString);
 
+            Console.ReadKey();
+        }
+        #endregion
 
+        #region
+        static string TrimText(string _string)
+        {
+            if (_string.Trim().Length == 0) return "";
+
+            string ret = "";
+
+            string _last = "";
+            foreach (char _char in _string)
+            {
+                if (_last == _char.ToString().ToLower())
+                {
+                    continue;
+                }
+                else
+                {
+                    ret += _char;
+                }
+                _last = _char.ToString().ToLower();
+            }
+
+            return ret;
+        }
+        static void MainTrimText()
+        {
+            showH1("Задание 3. Удаление дублей символов в строке");
+            string inputString = KeyInputString("Введите строку ");
+            showH2("Строка без дублей");
+            ConsoleInfo($"{TrimText(inputString)}");
+
+            Console.ReadKey();
         }
         #endregion
 
@@ -470,9 +504,12 @@ namespace HomeWork5._5
         {
 
             // Вызов задания по матрицам
-            //MainMatrix(); // Задание 1
+            MainMatrix(); // Задание 1
 
             MainText(); // Задание 2
+
+            MainTrimText(); // Задание 3
+
         }
 
     }
