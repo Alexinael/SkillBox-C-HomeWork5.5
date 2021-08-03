@@ -500,17 +500,66 @@ namespace HomeWork5._5
         }
         #endregion
 
+        #region
+        private static void MainProgressiveCheck()
+        {
+            showH1("Задание 4. Проверка на прогрессию");
+            string inputString = KeyInputString("Введи последовательность");
+            if (inputString.Trim() == "")
+            {
+                return;
+            }
+
+            string[] listString = inputString.Split();
+
+
+            List<int> listInt = new List<int>();
+            foreach (string line in listString)
+            {
+                if (line.Trim() == "") continue;
+                int tmp = 0;
+                int.TryParse(line, out tmp);
+                if (listInt.IndexOf(tmp) > -1) { continue; }
+                listInt.Add(tmp);
+
+
+            }
+            if (listInt.Count < 2)
+            {
+                ConsoleInfo("В массиве меньше 2 чисел.");
+                return;
+            }
+            listInt.Sort(); // сортируем
+            bool isProgressive = true;
+            int delta = listInt[1] - listInt[0];
+            for (int i = 2; i < listInt.Count; i++)
+            {
+                int _delta = listInt[i] - listInt[i - 1];
+                if (_delta != delta && _delta % delta != 0)
+                {
+                    isProgressive = false;
+                    break;
+                }
+            }
+
+            ConsoleInfo($"Это прогрессия - {isProgressive}");
+
+            Console.ReadKey();
+        }
+        #endregion
+
         static void Main(string[] args)
         {
 
-            // Вызов задания по матрицам
             MainMatrix(); // Задание 1
 
             MainText(); // Задание 2
 
             MainTrimText(); // Задание 3
 
+            MainProgressiveCheck(); // Задание 4
         }
 
+       
     }
 }
